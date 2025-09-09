@@ -8,7 +8,7 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -71,9 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _showError(String message) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -85,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const darkRed = Color(0xFF580000); // ✅ const instead of final
+    final darkRed = const Color(0xFF580000);
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -94,8 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
           child: Card(
             elevation: 16,
-            shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
               child: Form(
@@ -105,36 +102,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Image.asset('assets/logo.png', height: 100),
                     const SizedBox(height: 16),
-                    Text(
-                      'SJC E-attendance',
-                      style: GoogleFonts.poppins(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: darkRed,
-                      ),
-                    ),
+                    Text('SJC e-attendance', style: GoogleFonts.poppins(fontSize: 26, fontWeight: FontWeight.bold, color: darkRed)),
                     const SizedBox(height: 16),
-                    Text(
-                      'Login with your Faculty ID',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: Colors.grey[700],
-                      ),
-                    ),
+                    Text('Login with your Staff ID', style: GoogleFonts.poppins(fontSize: 16, color: Colors.grey[700])),
                     const SizedBox(height: 32),
                     TextFormField(
                       controller: _staffIdController,
                       decoration: InputDecoration(
-                        labelText: 'Faculty ID',
+                        labelText: 'Staff ID',
                         prefixIcon: const Icon(Icons.badge),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
                         filled: true,
                         fillColor: Colors.grey.shade100,
                       ),
-                      validator: (val) =>
-                      val == null || val.isEmpty ? 'Enter your Faculty ID' : null,
+                      validator: (val) => val == null || val.isEmpty ? 'Enter your Staff ID' : null,
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
@@ -143,14 +124,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                         labelText: 'Password',
                         prefixIcon: const Icon(Icons.lock),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
                         filled: true,
                         fillColor: Colors.grey.shade100,
                       ),
-                      validator: (val) =>
-                      val == null || val.isEmpty ? 'Enter your password' : null,
+                      validator: (val) => val == null || val.isEmpty ? 'Enter your password' : null,
                     ),
                     const SizedBox(height: 32),
                     SizedBox(
@@ -160,25 +138,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: darkRed,
                           foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                           elevation: 8,
-                          textStyle: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
+                          textStyle: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         onPressed: _isLoading ? null : _login,
                         child: _isLoading
-                            ? const SizedBox(
-                          height: 24,
-                          width: 24,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 3,
-                          ),
-                        )
+                            ? const SizedBox(height: 24, width: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3))
                             : const Text('Login'),
                       ),
                     ),
